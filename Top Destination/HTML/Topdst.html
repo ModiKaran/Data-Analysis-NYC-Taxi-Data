@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["map"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Lat', 'Long','Trips'],
+          [40.765991,-74.023048,'1:7559'],	
+          [40.744843,-73.948723,'2:7506'],	
+          [40.744915,-73.949043,'3:5090'],	
+          [40.736053,-73.990944,'4:2902'],	
+          [40.758011,-73.937584,'5:2834'],	
+          [40.744625,-73.948799,'6:2291'],	
+          [40.622555,-73.988068,'7:2289'],	
+          [40.758148,-73.937523,'8:2219'],	
+          [40.759426,-73.965034,'9:2195'],	
+          [40.774151,-73.96167,'10:1994'],	
+          [40.737007,-73.993027,'11:1907'],	
+          [40.83717,-73.850418,'12:1804'],	
+          [40.765968,-73.83461,'13:1797'],
+          [40.656971,-73.793983,'14:1765'],	
+          [40.683193,-73.980598,'15:1577'],	
+          [40.760349,-73.923698,'16:1218'],	
+          [40.684944,-73.98587,'17:1096'],	
+          [40.770645,-73.990784,'18:1070'],	
+          [40.763824,-73.903,'19:922'],	
+          [40.631966,-73.977379,'20:861']	
+        ]);
+
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(data, {showTip: true});
+      }
+
+    </script>
+  </head>
+
+  <body>
+    <div id="map_div" style="width: 1000px; height: 500px"></div>
+  </body>
+</html>
