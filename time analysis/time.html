@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+
+  var data = google.visualization.arrayToDataTable([
+    ['Time of the Day', 'Taxi density'],
+    ['Morning (6:00 am - 11:59 am)', 41612429],
+    ['Noon (12:00 pm - 3:59 pm)',      33865427],
+    ['Evening (4:00 pm - 6:59 pm )', 25743870],
+    ['Night (7:00 pm - 11:59 pm)',49623418],	
+    ['Late Night (12:00 am - 05:59 am)', 22334615]
+  ]);
+
+  var options = {
+    title: 'Time based - Taxi density',
+    hAxis: {title: 'No of taxi rides', titleTextStyle: {color: 'red'}}
+  };
+
+  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+  chart.draw(data, options);
+
+}
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+

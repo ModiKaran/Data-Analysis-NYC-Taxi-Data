@@ -1,0 +1,9 @@
+Evening	25743870
+
+Late Night	22334615
+
+Morning	41612429
+
+Night	49623418
+
+Noon	33865427
