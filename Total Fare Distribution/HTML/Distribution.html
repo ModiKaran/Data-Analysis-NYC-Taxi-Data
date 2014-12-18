@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Month','Fare', 'Surcharge', 'Tax', 'Tip', 'Toll',
+           { role: 'annotation' } ],
+          ['January', 83, 2.44, 3.79, 9.24, 1.53,''],
+          ['February', 82.03, 2.51, 3.97, 9.92, 1.57,''],
+          ['March', 81.46, 2.49, 3.89, 10.34, 1.83,''],
+          ['April', 84.03, 2.19, 3.34, 8.81, 1.63,''],
+          ['May', 83.71, 2.14, 3.32, 9.07, 1.76,''],
+          ['June', 84.77, 2.03, 3.19, 8.34, 1.67,''],
+          ['July', 84.19, 2.19, 3.34, 8.62, 1.66,''],
+          ['August', 83.22, 2.27, 3.41, 9.22, 1.88,''],
+          ['September', 84.20, 2.05, 3.23, 8.76, 1.76,''],
+          ['October', 83.47, 2.13, 3.32, 9.24, 1.84,''],
+          ['November', 84.50, 1.95, 3.24, 8.65, 1.65,''],
+          ['December', 84.03, 2.06, 3.25, 8.90, 1.75,'']
+        ]);
+
+        var options = {
+          width: 600,
+          height: 400,
+          title: '% Total Fare Distribution Year 2013',
+          hAxis: {title: '% of Total Fare'},
+          bar: { groupWidth: '75%' },
+          isStacked: true
+        };
+ 
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+

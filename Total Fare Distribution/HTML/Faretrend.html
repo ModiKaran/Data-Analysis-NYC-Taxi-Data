@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+
+  var data = google.visualization.arrayToDataTable([
+    ['Month', 'Total Fare'],
+    ['January',  194350370],
+    ['February', 175694402.5],
+    ['March',  201997403.3],
+    ['April',  225392497.5],
+    ['May',  229247311],
+    ['June',  224740544],
+    ['July',  206242416],
+    ['August', 183894784],
+    ['September', 217872432],
+    ['October', 225385216],
+    ['November', 221097696],
+    ['December', 214016960]
+  ]);
+
+  var options = {
+    title: 'Total Fare Trends Year 2013',
+    hAxis: {title: 'Month'}
+  };
+
+  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+  chart.draw(data, options);
+
+}
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+
