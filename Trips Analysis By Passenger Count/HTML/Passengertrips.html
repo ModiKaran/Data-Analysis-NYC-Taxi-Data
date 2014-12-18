@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['No of Passenger', 'No of trips'],
+          ['1 Passenger', 121959711],
+          ['2 Passenger', 23517494],
+          ['3 Passenger', 7315829],
+          ['4 Passenger', 3582103],
+          ['5 Passenger', 10034696],
+          ['6 Passenger', 6764789],
+        ]);
+
+        var options = {
+          title: '% of Trips based on Passenger Count for Year 2013'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+
+

@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+
+  var data = google.visualization.arrayToDataTable([
+    ['Fare Amount', 'No of Trips'],
+    ['less then 10',  69535041],
+    ['10 to 19.99',  73552156],
+    ['20 to 29.99',  15913171],
+    ['30 to 39.99',  5773122],
+    ['40 to 49.99',  3271439],
+    ['50 to 59.99',  2479170],
+    ['60 to 69.99',  1834619],
+    ['Equal or greater then 70',  821041]
+  ]);
+
+  var options = {
+    title: 'Number of Trips based on Fare Amount Year 2013',
+    hAxis: {title: 'Fare Amount Range'}
+  };
+
+  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+  chart.draw(data, options);
+
+}
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+
