@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["table"]});
+      google.setOnLoadCallback(drawTable);
+
+      function drawTable() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Type');
+        data.addColumn('number', 'Jan');
+        data.addColumn('number', 'Feb');
+        data.addColumn('number', 'Mar');
+        data.addColumn('number', 'Apr');
+        data.addColumn('number', 'May');
+        data.addColumn('number', 'Jun');
+        data.addColumn('number', 'Jul');
+        data.addColumn('number', 'Aug');
+        data.addColumn('number', 'Sep');
+        data.addColumn('number', 'Oct');
+        data.addColumn('number', 'Nov');
+        data.addColumn('number', 'Dec');
+        data.addRows([
+          ['Cash',  {v: 0.00421, f: '0.00421%'}, 
+                    {v: 0.00373, f: '0.00373%'},
+                    {v: 0.00605, f: '0.00605%'},
+                    {v: 0.00190, f: '0.00190%'},
+                    {v: 0.00156, f: '0.00156%'},
+                    {v: 0.00304, f: '0.00304%'},
+                    {v: 0.00327, f: '0.00327%'},
+                    {v: 0.00239, f: '0.00239%'},
+                    {v: 0.00224, f: '0.00224%'},
+                    {v: 0.00168, f: '0.00168%'},
+                    {v: 0.00187, f: '0.00187%'},
+                    {v: 0.00208, f: '0.00208%'}],
+          ['Card',  {v: 92.42068, f: '92.42068%'},  
+                    {v: 92.32107, f: '92.32107%'},
+                    {v: 91.81225, f: '91.81225%'},
+                    {v: 92.07680, f: '92.07680%'},
+                    {v: 91.39972, f: '91.39972%'},
+                    {v: 91.05795, f: '91.05795%'},
+                    {v: 90.83383, f: '90.83383%'},
+                    {v: 90.73819, f: '90.73819%'},
+                    {v: 90.93272, f: '90.93272%'},
+                    {v: 91.17737, f: '91.17737%'},
+                    {v: 90.97688, f: '90.97688%'},
+                    {v: 90.48371, f: '90.48371%'}],
+
+        ]);
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data, {showRowNumber: false});
+      }
+    </script>
+  </head>
+  <body>
+    <div id="table_div"></div>
+  </body>
+</html>
+
