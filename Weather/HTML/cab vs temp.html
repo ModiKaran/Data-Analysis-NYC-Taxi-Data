@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart1);
+      function drawChart1() {
+
+	var temp = [4.999,5.499,5.996,6.99,7.996,8.999,9.49,9.299,8.699,7.7999,6.7988,5.69972];
+	var usage = [8.53253,8.07841,9.09415,8.71953,8.82612,8.30666,7.78236,6.77401,8.14627,8.66415,8.30839,8.06741];
+	
+	var finalarr = [['Week','Usage','Temperature']];
+
+	for(var i=0;i<12;i++)
+	{
+		finalarr.push([i+1,usage[i],temp[i]]);
+	}
+
+        var data = google.visualization.arrayToDataTable(finalarr);
+
+        var options = {
+          title: 'Analysis'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div1'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div1" style="position:fixed; left:0%; top:0%; width: 100%; height: 100%;"></div>
+  </body>
+</html>
