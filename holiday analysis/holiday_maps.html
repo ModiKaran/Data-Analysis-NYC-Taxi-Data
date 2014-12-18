@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+
+  var data = google.visualization.arrayToDataTable([
+    ['National Holiday', 'Taxi density', {role:'style'}],
+    ['New Year\'s Day',  412630,      'Au'],
+    ['President\'s Day',  407104,      'silver'],
+    ['Labour\'s Day',  332266,       'gold'],
+    ['July 4th',  326471,      'Ag'],
+	['Columbus Day',  403416,      'red'],
+	['MKL\'s Day',  384614,      'red'],
+	['Memorial\'s Day',  336266,      'silver'],
+	['Christmas Day',  245723,      'red'],
+	['Thanksgiving',  331610,      'red'],
+	['Veteran\'s Day',  417822,      'gold']
+  ]);
+
+  var options = {
+    title: 'Number of taxis active on various national holidays',
+    hAxis: {title: 'Year', titleTextStyle: {color: 'blue'}}
+  };
+
+  var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+  chart.draw(data, options);
+
+}
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
