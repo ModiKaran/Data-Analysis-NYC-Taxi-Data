@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>HeatMap</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script>
+
+		// This example creates a simple polygon representing the Bermuda Triangle.
+
+		function initialize(arr3,sum)
+		{
+			mapOptions = {
+				zoom: 10,
+    				center: new google.maps.LatLng(40.674471, -73.768633),
+    				mapTypeId: google.maps.MapTypeId.TERRAIN
+ 	 		};
+
+  			map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+
+			//console.log(arr3);
+			for(var i in arr3)
+			{
+				var per = (arr3[i][0]*100)/(sum);
+				//var no = 16773120 - (per*4096);
+				//var col = "#" + no.toString(16);
+
+				if(per<0.001)
+				{
+					var col = "#FFF000";
+				}
+				else if(per>=0.001 && per<1)
+				{
+					var col = "#FF8C00";
+				}
+				else if(per>=1 && per<14)
+				{
+					var col = "#FF4500";
+				}
+				else
+				{
+					var col = "#FF0000";
+				}
+
+  				// Define the LatLng coordinates for the polygon's path.
+ 				var tc = [];
+				bb = arr3[i][1].split(" ");
+				for(var j=1; j<bb.length; j++)
+				{
+					var cc = bb[j].split(",");
+					tc.push(new google.maps.LatLng(parseFloat(cc[0]),parseFloat(cc[1])));
+				}
+
+  				// Construct the polygon.
+  				gmaps = new google.maps.Polygon({
+    					paths: tc,
+   	 				strokeColor: 'white',
+    					strokeOpacity: 0.6,
+    					strokeWeight: 0.6,
+    					fillColor: col,
+    					fillOpacity: 0.7
+				});
+	
+				gmaps.setMap(map);
+			
+			}
+
+		}
+
+
+		function loadmap()
+		{
+			$.ajax({
+				type: "GET",
+				url: "finalhm.php?month_id="+monthid,
+				dataType: "json",
+				success: function(data)
+				{
+					var arr1 = data['arr1'];
+					var arr2 = data['arr2'];
+					var sum = 0;
+					var arr3 = [];
+
+					var tuples = [];
+
+					for (var key in arr1) tuples.push([key, arr1[key]]);
+
+					tuples.sort(function(a, b) {
+						a = a[1];
+    						b = b[1];
+
+    						return a < b ? -1 : (a > b ? 1 : 0);
+					});
+
+					var bar = "<center><h3>High Density</h3></center><table class='table table-bordered'><th>Neighborhood</th><th>Trips</th>";
+					for (var i = tuples.length-1; i>tuples.length-6 ; i--) {
+    						var key = arr2[tuples[i][0]].split(" ")[0].replace(/,/g ," ");
+    						var value = tuples[i][1];
+						bar = bar + "<tr><td>" + key + "</td><td>" + value + "</td></tr>";
+					}
+
+					var bar2 = "<center><h3>Low Density</h3><table class='table table-bordered'><th>Neighborhood</th><th>Trips</th>";
+                                        for (var i = 0; i<tuples.length ; i++) {
+						if(tuples[i][1]==1){
+                                                	var key = arr2[tuples[i][0]].split(" ")[0].replace(/,/g ," ");
+                                               		var value = tuples[i][1];
+                                                	bar2 = bar2 + "<tr><td>" + key + "</td><td>" + value + "</td></tr>";
+						}
+						else{
+							break;
+						}
+                                        }
+
+					bar = bar + "</table>";
+					$("#topdiv").html(bar);
+
+					bar2 = bar2 + "</table>";
+					$("#topdiv2").html(bar2);
+
+					for(var i in arr1)
+					{
+						sum = sum + arr1[i];
+						count = arr1[i];
+						arr1[i] = [count, arr2[i]];
+						arr3.push(i);
+					}
+					
+					if(sum!=0)
+					{
+						initialize(arr1, sum);
+					}
+					//console.log(sum);
+				},
+				error: function(xhr, status, error)
+				{
+					alert(xhr.responseText);
+				}
+			});
+		}
+
+		monthid = 1;
+		function updatemonth(id,m)
+		{
+			monthid = id;
+			$("#dpmonth").html(m+"&nbsp;&nbsp;");
+		}
+
+	</script>
+	</head>
+	<body>
+		<div id="map-canvas"></div>
+		<div style="position:fixed; top:0%; left:0%; width:100%; z-index:3; text-align:center;">
+			<div class="btn-group">
+  				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    					<span id="dpmonth">January&nbsp;&nbsp;</span><span class="caret"></span>
+  				</button>
+  				<ul class="dropdown-menu" role="menu">
+    					<li><a href="#" onclick=updatemonth(1,'January')>January</a></li>
+                                        <li><a href="#" onclick=updatemonth(2,'February')>February</a></li>
+                                        <li><a href="#" onclick=updatemonth(3,'March')>March</a></li>
+                                        <li><a href="#" onclick=updatemonth(4,'April')>April</a></li>
+                                        <li><a href="#" onclick=updatemonth(5,'May')>May</a></li>
+                                        <li><a href="#" onclick=updatemonth(6,'June')>June</a></li>
+                                        <li><a href="#" onclick=updatemonth(7,'July')>July</a></li>
+                                        <li><a href="#" onclick=updatemonth(8,'August')>August</a></li>
+                                        <li><a href="#" onclick=updatemonth(9,'September')>September</a></li>
+                                        <li><a href="#" onclick=updatemonth(10,'October')>October</a></li>
+                                        <li><a href="#" onclick=updatemonth(11,'November')>November</a></li>
+                                        <li><a href="#" onclick=updatemonth(12,'December')>December</a></li>
+  				</ul>
+			</div>
+			<button onclick="loadmap()" class="btn btn-primary">Let's Go!</button>
+		</div>
+		<div style="position:fixed; bottom:0%; left:0%; background-color:white; border:solid 1px gray;" id="topdiv">
+			
+		</div>
+                <div style="position:fixed; bottom:0%; right:0%; background-color:white; border:solid 1px gray; max-height:300px; overflow-y:scroll;" id="topdiv2">
+			
+                </div>
+	</body>
+</html>
+
