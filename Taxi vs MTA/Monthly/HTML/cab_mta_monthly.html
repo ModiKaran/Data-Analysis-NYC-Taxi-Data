@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+	//var cab = [0,14776615,13990176,15749228,15100468,15285049,14385456,13823840,12597109,14107693,15004556,14388451,13971118];
+	//173179759
+	var cab = [0,8.5325,8.0784,9.09415,8.71953,8.82611,8.30666,7.98236,7.27400,8.146271,8.66415,8.30839,8.06740];
+	//var mta = [0,128768,120490,120417,134630,139099,127836,127095,134504,128130,132097,126045,128519];
+	//1563947
+	var mta = [0,8.233,7.7044223,7.69955,8.60834,8.894099,8.17393,8.12655,8.60029,8.19273,8.44638,8.05941,8.21760];
+
+	var finalarr = [['Week','Cab','MTA']];
+
+	for(var i=1;i<13;i++)
+	{
+		finalarr.push([i,cab[i],mta[i]]);
+	}
+        var data = google.visualization.arrayToDataTable(finalarr);
+
+        var options = {
+          title: 'Analysis',
+	  colors:['blue','red']
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+
+     }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 100%; height: 100%;"></div>
+  </body>
+</html>
